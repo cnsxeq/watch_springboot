@@ -1,0 +1,195 @@
+/*login */
+img.loginBackgroundImg{
+    display: block;
+    margin: 0px auto;
+    width:100%;
+    height: 100%;
+}
+div.loginSmallDiv{
+    background-color:	#F0E68C;
+    position:absolute;
+    right: 180px;
+    top:180px;
+    width:350px;
+    height:400px;
+    padding:60px 25px 80px 25px;
+}
+div.login_acount_text{
+    color: #3C3C3C;
+    font-size: 16px;
+    font-weight: bold;
+}
+div.loginInput{
+    border: 1px solid #000000;
+    margin: 20px 0px;
+}
+div.loginInput input{
+    display: inline-block;
+    border: 0px solid transparent;
+    width: 254px;
+    height: 40px;
+    position: relative;
+}
+div.loginInput span, div.loginInput input {
+    display: inline-block;
+}
+div.loginInput span.loginInputIcon {
+    margin: 0px;
+    background-color: #CBCBCB;
+    width: 40px;
+    height: 40px;
+}
+span.loginInputIcon span.glyphicon {
+    font-size: 22px;
+    position: relative;
+    left: 9px;
+    top: 9px;
+    color: #606060;
+}
+
+
+button.sign-in-button{
+    margin-top: 20px;
+    width: 100%;
+    padding: 9px 18px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    background: #42c02e;
+    cursor: pointer;
+    outline: none;
+    display: block;
+    clear: both;
+}
+button.sign-in-button span #sign-in-loading{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-top: -4px;
+    margin-right: 2px;
+    display: none;
+}
+div.loginErrorMessageDiv{
+    position:absolute;
+    width:300px;
+    top:20px;
+    visibility: hidden;
+}
+div.loginErrorMessageDiv div.alert{
+    padding: 5px !important;
+}
+
+/*navigator*/
+#sidemenu{
+    display:none;
+}
+#sidemenu:checked+aside{
+    /*为被选中的sidemenu后的aside设置属性（紧邻）*/
+    left: 0;
+    /*点击按钮即选中checked后,侧边栏位置变为贴着左边,配合ease-out使用,有渐变滑出的效果*/
+}
+#sidemenu:checked ~ #wrap{
+    /*为被选中的sidemenu后的wrap设置属性（非紧邻）*/
+    padding-left:130px;
+}
+aside {
+    /*侧边栏,初始位置为-200px，即隐藏效果*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -130px;
+    width: 130px;
+    background-color: rgba(238,238,238,0.98);
+    transition: 0.2s ease-out;
+    /*动画效果的执行方式是ease-out，即侧边栏滑动效果为渐变式，而不是生硬的突然变化*/
+}
+h2 {
+    color: #008000;
+    text-align: center;
+    font-size: 2em;
+}
+/*控制侧边栏进出的按钮（外部包裹）*/
+#wrap {
+    transition: 0.2s ease-out;
+}
+#sideMenuControl{
+    /*控制侧边栏进出的按钮*/
+    position:absolute;
+    background: white;
+    border-radius: 70px;
+    color: orange;
+    cursor: pointer;
+    display: block;
+    font-family: Courier New;
+    font-size: 2em;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    text-align: center;
+    display: inline-block;
+}
+#sideMenuControl:hover{
+    background: #000;
+}
+#sideul li {
+    color:#333;
+    width: 70%;
+    height: 1.8em;
+    font-size: 1.1em;
+    text-align: center;
+}
+#sideul a{
+    text-decoration: none;
+}
+
+#sideul li:hover {
+    color: orange;
+}
+
+ol.breadcrumb{
+    margin-left: 40px;
+}
+
+
+
+/*分页*/
+div.pageDiv{
+    text-align:center;
+}
+ul.pagination a.current{
+    font-weight:bold;
+    color:black;
+}
+
+/*brand*/
+div.addDiv{
+    width:400px;
+    margin:0px auto;
+}
+
+table.addTable{
+    width:100%;
+}
+table.addTable td{
+    padding:5px;
+}
+
+
+/*editBrand*/
+div.editDiv{
+    width:400px;
+    margin:0px auto;
+}
+
+/*culture*/
+div.cultureDiv{
+    width:50%;
+    margin:0px auto;
+}
+
+table.editTable tr td textarea{
+    height: 100px;
+    width: 500px;
+}

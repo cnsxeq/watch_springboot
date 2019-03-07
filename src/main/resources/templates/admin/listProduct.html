@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/admin/adminHeader::html('产品管理')" ></head>
+<body>
+<div th:replace="include/admin/adminNavigator::html" ></div>
+<script>
+    $(function(){
+        var bid = getUrlParms("bid");
+        var data4Vue = {
+            uri:'products',
+            beans: [],
+            bean: {id:0,name:'',price:0,sex:'',core:'',shell:'',dial_diameter:0,brand:{id:0,name:''}},
+            pagination:{},
+            brand:{id:0,name:''},
+        };
+        //ViewModel
+        var vue = new Vue({
+            el: '#workingArea',
+            data: data4Vue,
+            mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
+                this.getBrand(bid);
+                this.list(0);
+            },
+            methods: {
+                getBrand:function(bid){
+                    var url = "brands/"+bid;
+                    axios.get(url).then(function(response) {
+                        vue.brand = response.data;
+                    })
+                },
+                list:function(start){
+                    var url =  "brands/"+bid+"/"+this.uri+"?start="+start;
+                    axios.get(url).then(function(response) {
+                        vue.pagination = response.data;
+                        vue.beans = response.data.content;
+                    });
+                },
+                deleteBean: function (id) {
+                    if(!checkDeleteLink())
+                        return;
+                    var url = this.uri+"/"+id;
+                    axios.delete(url).then(function(response){
+                        if(0!=response.data.length)
+                            alert(response.data);
+                        else
+                            vue.list(0);
+                    });
+                },
+                jump: function(page){
+                    jump(page,vue); //定义在adminHeader.html 中
+                },
+                jumpByNumber: function(start){
+                    jumpByNumber(start,vue);
+                },
+                add: function () {
+                    if(!checkEmpty(this.bean.name, "产品名称"))
+                        return;
+                    if(!checkEmpty(this.bean.price,"价格"))
+                        return;
+                    if(!checkEmpty(this.bean.sex,"性别"))
+                        return;
+                    if(!checkEmpty(this.bean.core,"机芯类型"))
+                        return;
+                    if(!checkEmpty(this.bean.shell,"表壳材质"))
+                        return;
+                    if(!checkEmpty(this.bean.dial_diameter,"表盘直径"))
+                        return;
+                    var url = this.uri;
+                    this.bean.brand.id=bid;
+                    axios.post(url,this.bean).then(function(response){
+                        vue.list(0);
+                        vue.bean = {id:0,name:'',price:0,sex:'',core:'',shell:'',dial_diameter:0,brand:{id:0,name:''}};
+                    });
+                },
+            }
+        });
+    });
+</script>
+
+<div id="workingArea" >
+
+    <div>
+        <div th:replace="include/admin/adminNavigator::html" ></div>
+        <ol class="breadcrumb" id="breadcrumb">
+            <li>后台</li>
+            <li ><a href="admin_brand">{{brand.name}}</a></li>`
+            <li class="active">产品管理</li>
+        </ol>
+    </div>
+
+    <div class="listDataTable">
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+            <tr class="success">
+                <th>ID</th>
+                <th>图片</th>
+                <th>产品名称</th>
+                <th>价格</th>
+                <th>机芯类型</th>
+                <th>性别</th>
+                <th>表壳材质</th>
+                <th>表盘直径</th>
+                <th>属性管理</th>
+                <th>编辑</th>
+                <th>删除</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr v-for="bean in beans">
+                <td>{{bean.id}}</td>
+                <td>
+                    <img v-if="null != bean.firstProductImage" width="40px" :src="'img/productSingle/'+bean.firstProductImage.id+'.jpg'">
+                </td>
+                <td>{{bean.name}}</td>
+                <td>￥{{bean.price}}</td>
+                <td>{{bean.core}}</td>
+                <td>{{bean.sex}}</td>
+                <td>{{bean.shell}}</td>
+                <td>{{bean.dial_diameter}}mm</td>
+                <td><a :href="'admin_property_edit?pid='+bean.id "><span class="glyphicon glyphicon-th-list"></span></a></td>
+                <td><a :href="'admin_product_edit?pid='+bean.id"><span class="glyphicon glyphicon-edit"></span></a></td>
+                <td><a href="#nowhere" @click="deleteBean(bean.id)"><span class="glyphicon glyphicon-trash"></span></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="include/admin/adminPage::html" ></div>
+
+    <div class="panel panel-warning addDiv">
+        <div class="panel-heading">新增产品</div>
+        <div class="panel-body">
+            <table class="addTable">
+                <tr>
+                    <td>产品名称</td>
+                    <td><input  @keyup.enter="add" v-model.trim="bean.name" type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>价格</td>
+                    <td><input  @keyup.enter="add" v-model.trim="bean.price" type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>机芯类型</td>
+                    <td><input  @keyup.enter="add" v-model.trim="bean.core" type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>性别</td>
+                    <td><input  @keyup.enter="add" v-model.trim="bean.sex" type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>表壳材质</td>
+                    <td><input  @keyup.enter="add" v-model.trim="bean.shell" type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>表盘直径</td>
+                    <td><input  @keyup.enter="add" v-model.trim="bean.dial_diameter" type="text" class="form-control"></td>
+                </tr>
+                <tr class="submitTR">
+                    <td colspan="2" align="center">
+                        <a href="#nowhere"  @click="add" class="btn btn-success">提交</a>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<div  th:fragment="html">
+    <script>
+        function imgAndInfoPageRegisterListeners(vue){
+//            $(".addCartButton").removeAttr("disabled");
+//            $(".addCartLink").click(function(){
+//                var url = "foreCheckLogin";
+//                axios.get(url).then(function(response) {
+//                    if(0==response.data.code){
+//                        var pid = vue.product.id;
+//                        var url =  "foreAddCart?pid="+pid;
+//                        axios.get(url).then(function(response) {
+//                            var result = response.data;
+//                            if(0==result.code){
+//                                $(".addCartButton").html("已加入购物车");
+//                                $(".addCartButton").attr("disabled","disabled");
+//                                $(".addCartButton").css("background-color","lightgray")
+//                                $(".addCartButton").css("border-color","lightgray")
+//                                $(".addCartButton").css("color","black")
+//                            }
+//                        });
+//                    }
+//                    else{
+//                        $("#loginModal").modal('show');
+//                    }
+//                });
+//            });
+//            $(".buyLink").click(function(){
+//                var url = "forecheckLogin";
+//                axios.get(url).then(function(response) {
+//                    if(0==response.data.code){
+//                        var pid = vue.product.id;
+//                        var num= $(".productNumberSetting").val();
+//                        var url =  "forebuyone?pid="+pid+"&num="+num;
+//                        axios.get(url).then(function(response) {
+//                            var oiid = response.data;
+//                            location.href="buy?oiid="+oiid;
+//                        });
+//                    }
+//                    else{
+//                        $("#loginModal").modal('show');
+//                    }
+//                });
+//                return false;
+//            });
+//
+//            $("button.loginSubmitButton").click(function(){
+//                var url =  "forelogin";
+//                if(0==vue.user.name.length){
+//                    $("span.errorMessage").html("请输入用户名");
+//                    $("div.loginErrorMessageDiv").css("visibility","visible");
+//                    return;
+//                }
+//                if(0==vue.user.password.length){
+//                    $("span.errorMessage").html("请输入密码");
+//                    $("div.loginErrorMessageDiv").css("visibility","visible");
+//                    return;
+//                }
+//
+//                axios.post(url,vue.user).then(function(response) {
+//                    var result = response.data;
+//                    if(result.code==0){
+//                        location.href="product?pid="+vue.p.id;
+//                    }
+//                    else{
+//                        $("span.errorMessage").html(result.message);
+//                        $("div.loginErrorMessageDiv").css("visibility","visible");
+//                    }
+//                });
+//            });
+
+            $("img.smallImage").mouseenter(function(){
+                var bigImageURL = $(this).attr("src");
+                $("img.bigImg").attr("src",bigImageURL);
+            });
+
+//            $("img.bigImg").load(
+//                function(){
+//                    $("img.smallImage").each(function(){
+//                        var bigImageURL = $(this).attr("src");
+//                        img = new Image();
+//                        img.src = bigImageURL;
+//                        img.onload = function(){
+//                            $("div.img4load").append($(img));
+//                        };
+//                    });
+//                }
+//            );
+        }
+    </script>
+
+    <div class="imgAndInfo">
+        <div class="imgInImgAndInfo">
+        <img v-if="firstProductImage!=null" :src="'img/productSingle/'+firstProductImage.id+'.jpg'" class="bigImg">
+        <div class="smallImageDiv">
+            <img v-for="pp in product.productPluralImages" :src="'img/productPlural/'+pp.id+'.jpg'" class="smallImage">
+        </div>
+        <div class="img4load hidden"></div>
+    </div>
+
+    <div class="infoInImgAndInfo">
+        <div class="productTitle">{{product.name}}</div>
+        <div class="param-tit">
+            <strong>主要参数</strong>
+            <span class="param-xi">详细参数请往下拉</span>
+        </div>
+
+        <div class="productParam">
+            <dl>
+                <dt>机芯类型:</dt>
+                <dd>{{product.core}}</dd>
+            </dl>
+            <dl>
+                <dt>表壳材质:</dt>
+                <dd>{{product.shell}}</dd>
+            </dl>
+            <dl>
+                <dt>表径:</dt>
+                <dd>{{product.dial_diameter}}毫米</dd>
+            </dl>
+            <dl>
+                <dt>价格:</dt>
+                <dd>
+                    <span class="priceYuan">¥</span>
+                    <span  class="price">{{product.price}}</span>
+                </dd>
+            </dl>
+            <div class="buyDiv">
+                <a class="buyLink"><button class="buyButton" >立即购买</button></a>
+                <a href="#nowhere" class="addCartLink"><button class="addCartButton"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</button></a>
+            </div>
+        </div>
+        <div th:replace="include/fore/product/productProperty::html"></div>
+        <div th:replace="include/fore/product/productStore::html"></div>
+    </div>
+        <div style="clear:both"></div>
+
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div  th:fragment="html">
+    <div class="brandNavigator">
+        <a :href="'brand?name='+brand.name" class="brandImgAndName">
+            <img style="height: 100px;width:120px;" :src="'img/brand/'+brand.id+'.jpg'">
+            <span>{{brand.name}}({{brand.ename}})</span>
+        </a>
+        <span class="navigatorText">
+            <a :href="'brand?name='+brand.name">品牌文化</a></span>
+        <span class="navigatorText">
+            <a :href="'brandProduct?bid='+brand.id">
+                品牌产品
+        </a>
+         </span>
+    </div>
+    <div class="brandCulture">
+    </div>
+</div>

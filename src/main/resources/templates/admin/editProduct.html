@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="include/admin/adminHeader::html('编辑产品')" ></head>
+<body>
+<div th:replace="include/admin/adminNavigator::html" ></div>
+<script>
+    $(function(){
+        var data4Vue = {
+            uri: 'products',
+            listURL:'admin_product_list',
+            bean:{id:0,name:'',price:0,sex:'',core:'',shell:'',dial_diameter:0,brand:{id:0,name:''}},
+        };
+        //ViewModel
+        var vue = new Vue({
+            el: '#workingArea',
+            data: data4Vue,
+            mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
+                this.get();
+            },
+            methods: {
+                get:function(){
+                    var id = getUrlParms("pid");
+                    var url = this.uri+"/"+id;
+                    axios.get(url).then(function(response) {
+                        vue.bean = response.data;
+                    })
+                },
+                update:function () {
+                    if(!checkEmpty(this.bean.name, "产品名称"))
+                        return;
+                    if(!checkEmpty(this.bean.price,"价格"))
+                        return;
+                    if(!checkEmpty(this.bean.sex,"性别"))
+                        return;
+                    if(!checkEmpty(this.bean.core,"机芯类型"))
+                        return;
+                    if(!checkEmpty(this.bean.shell,"表壳材质"))
+                        return;
+                    if(!checkEmpty(this.bean.dial_diameter,"表盘直径"))
+                        return;
+                    var url = this.uri;
+                    axios.put(url,vue.bean).then(function(response){
+                        alert("更新成功");
+                        location.href=vue.listURL+"?bid="+vue.bean.brand.id;
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+<div id="workingArea">
+
+    <div>
+        <div th:replace="include/admin/adminNavigator::html" ></div>
+        <ol class="breadcrumb" id="breadcrumb">
+            <li>后台</li>
+            <li ><a href="admin_brand">{{bean.brand.name}}</a></li>`
+            <li ><a :href="'admin_product_list'+bean.id">产品管理</a></li>
+            <li class="active">编辑产品</li>
+        </ol>
+    </div>
+
+    <div class="panel panel-warning editDiv">
+        <div class="panel-heading">编辑产品</div>
+        <div class="panel-body">
+            <table class="editTable">
+                <tr>
+                    <td>产品名称</td>
+                    <td><input  @keyup.enter="update" v-model.trim="bean.name" type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>产品价格</td>
+                    <td><input  @keyup.enter="update" v-model.trim="bean.price" type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>机芯类型</td>
+                    <td><input  @keyup.enter="update" v-model.trim="bean.core"  type="text"  class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>性别</td>
+                    <td><input  @keyup.enter="update" v-model.trim="bean.sex" type="text" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>表壳材质</td>
+                    <td><input  @keyup.enter="update" v-model.trim="bean.shell"  type="text"
+                                class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>表盘直径</td>
+                    <td><input  @keyup.enter="update" v-model.trim="bean.dial_diameter"  type="text" class="form-control"></td>
+                </tr>
+                <tr class="submitTR">
+                    <td colspan="2" align="center">
+                        <input type="hidden" name="id"   v-model.trim="bean.id" >
+                        <a href="#nowhere" class="btn btn-success" @click="update">提 交</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

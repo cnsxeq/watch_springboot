@@ -1,0 +1,79 @@
+<div th:fragment="html">
+    <script>
+        $(function(){
+            $("input.sortBarPrice").keyup(function(){
+                var num= $(this).val();
+                if(num.length==0){
+                    $("div.productItem").show();
+                    return;
+                }
+                num = parseInt(num);
+                if(isNaN(num))
+                    num= 1;
+                if(num<=0)
+                    num = 1;
+                $(this).val(num);
+                var begin = $("input.beginPrice").val();
+                var end = $("input.endPrice").val();
+                if(!isNaN(begin) && !isNaN(end)){
+                    console.log(begin);
+                    console.log(end);
+                    $("div.productItem").hide();
+                    $("div.productItem").each(function(){
+                        var price = $(this).attr("price");
+                        price = new Number(price);
+                        if(price<=end && price>=begin)
+                            $(this).show();
+                        if(end==''){
+                            if(price >=begin)
+                                $(this).show();
+                        }
+                    });
+                }
+
+            });
+        });
+    </script>
+    <div class="categoryBox">
+        <dl>
+            <dt>机芯类型</dt>
+            <dd>
+                <span><a :class="{'grayColumn':(category.core=='')}" @click="selectByCore('')">不限</a></span>
+                <span><a :class="{'grayColumn':(category.core=='自动机械')}" @click="selectByCore('自动机械')">自动机械</a></span>
+                <span><a :class="{'grayColumn':(category.core=='手动机械')}"  @click="selectByCore('手动机械')">手动机械</a></span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>性别</dt>
+            <dd>
+                <span><a :class="{'grayColumn':(category.sex=='')}" @click="selectBySex('')">不限</a></span>
+                <span><a :class="{'grayColumn':(category.sex=='男士')}" @click="selectBySex('男士')">男士</a></span>
+                <span><a :class="{'grayColumn':(category.sex=='女士')}" @click="selectBySex('女士')">女士</a></span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>表壳材质</dt>
+            <dd>
+                <span><a :class="{'grayColumn':(category.shell=='')}" @click="selectByShell('')">不限</a></span>
+                <span><a :class="{'grayColumn':(category.shell=='不锈钢')}" @click="selectByShell('不锈钢')">不锈钢</a></span>
+                <span><a :class="{'grayColumn':(category.shell=='精钢')}" @click="selectByShell('精钢')">精钢</a></span>
+                <span><a :class="{'grayColumn':(category.shell=='白金')}" @click="selectByShell('白金')">白金</a></span>
+                <span><a :class="{'grayColumn':(category.shell=='黄金')}" @click="selectByShell('黄金')">黄金</a></span>
+                <span><a :class="{'grayColumn':(category.shell=='玫瑰金')}" @click="selectByShell('玫瑰金')">玫瑰金</a></span>
+                <span><a :class="{'grayColumn':(category.shell=='白金')}" @click="selectByShell('铂金')">铂金</a></span>
+                <span><a :class="{'grayColumn':(category.shell=='钛合金')}" @click="selectByShell('钛合金')">钛合金</a></span>
+                <span><a :class="{'grayColumn':(category.shell=='镶钻')}" @click="selectByShell('镶钻')">镶钻</a></span>
+            </dd>
+        </dl>
+        <dl>
+        <table class="categorySortBarTable">
+            <tr>
+                <td >价格<span class="glyphicon glyphicon-resize-vertical"></span></td>
+                <td><input class="sortBarPrice beginPrice" type="text" placeholder="最低价"></td>
+                <td class="grayColumn priceMiddleColumn">-</td>
+                <td><input class="sortBarPrice endPrice"  type="text" placeholder="最高价"></td>
+            </tr>
+        </table>
+        </dl>
+    </div>
+</div>

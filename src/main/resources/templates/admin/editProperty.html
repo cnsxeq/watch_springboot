@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/admin/adminHeader::html('产品属性')" ></head>
+<body>
+<div th:replace="include/admin/adminNavigator::html" ></div>
+<script>
+    $(function(){
+    var pid=getUrlParms("pid");
+    var data4Vue ={
+        product:{},
+        bean:{id:0,number_:''},
+        listURL:'admin_product_list',
+    };
+    var vue =new Vue({
+        el: '#workingArea',
+        data: data4Vue,
+        mounted:function () {
+            this.getProduct();
+            this.getProperty();
+        },
+        methods:{
+            getProduct:function () {
+                var url ="products/"+pid;
+                axios.get(url).then(function (response) {
+                  vue.product=response.data;
+                });
+            },
+            getProperty:function () {
+                var url="properties/"+pid;
+                axios.get(url).then(function (response) {
+                    vue.bean=response.data;
+                });
+            },
+            update:function () {
+                var url = "properties";
+                axios.put(url,vue.bean).then(function(response){
+                    alert("更新成功");
+                    location.href=vue.listURL+"?bid="+vue.product.brand.id;
+                });
+            },
+        }
+    });
+    });
+
+</script>
+
+<div id="workingArea" >
+    <div>
+        <div th:replace="include/admin/adminNavigator::html" ></div>
+        <ol class="breadcrumb" id="breadcrumb">
+            <li>后台</li>
+            <li ><a href="admin_brand">{{product.brand.name}}</a></li>`
+            <li ><a :href="'admin_product_list?bid='+product.id">{{product.name}}</a></li>
+            <li class="active">属性管理</li>
+        </ol>
+    </div>
+
+    <div class="editDiv">
+        <div class="panel panel-warning editDiv">
+            <div class="panel-heading">编辑属性</div>
+            <div class="panel-body">
+                <table class="editTable">
+                    <tr>基本信息</tr>
+                    <tr>
+                        <td>编号</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.number_" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>系列</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.series" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>机芯</tr>
+                    <tr>
+                        <td>机芯类型</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.core_model" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>机芯直径</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.core_diameter" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>机芯厚度</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.core_thickness" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>摆轮</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.balance_wheel" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>振频</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.vibration_frequency" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>宝石数</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.gemstone" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>零件数</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.sqares" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>动力储备</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.reserver" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>外观</tr>
+                    <tr>
+                        <td>表壳厚度</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.core_thickness" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>表盘颜色</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.dial_color" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>表盘形状</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.dial_shape" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>表带颜色</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.watchband_color" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>表扣类型</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.button_type" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>背透</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.beitou" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>重量</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.weight" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>防水深度</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.waterproof_depth" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>表耳间距</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.ear_spacing" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>材质</tr>
+                    <tr>
+                        <td>表壳材质</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.material_shell" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>表盘材质</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.material_case" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>表镜材质</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.material_mirror" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>表冠材质</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.material_crown" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>表带材质</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.material_band" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>表扣材质</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.material_button" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>功能</tr>
+                    <tr>
+                        <td>复杂功能</td>
+                        <td><input @keyup.enter="update" v-model.trim="bean.function" type="text" class="form-control"></td>
+                    </tr>
+                    <tr class="submitTR">
+                        <td colspan="2" align="center">
+                            <input type="hidden" name="id"   v-model.trim="bean.id" >
+                            <a href="#nowhere" class="btn btn-success" @click="update">提 交</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

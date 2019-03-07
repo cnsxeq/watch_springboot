@@ -1,0 +1,89 @@
+<div th:fragment="html">
+    <script>
+        $(function () {
+            var data4Vue={
+                uri:'register',
+                user:{name:'',password:'',repeatPassword:''}
+            };
+            var vue=new Vue({
+                el:'#workingArea',
+                data:data4Vue,
+                mounted:function () {
+                },
+                methods:{
+                    register:function () {
+                      var url=this.uri;
+                        if(0==this.user.name.length){
+                            $("span.errorMessage").html("请输入用户名");
+                            $("div.registerErrorMessageDiv").css("visibility","visible");
+                            return;
+                        }
+                        if(0==this.user.password.length){
+                            $("span.errorMessage").html("请输入密码");
+                            $("div.registerErrorMessageDiv").css("visibility","visible");
+                            return;
+                        }
+                        if(0==this.user.repeatPassword.length){
+                            $("span.errorMessage").html("请输入重复密码");
+                            $("div.registerErrorMessageDiv").css("visibility","visible");
+                            return;
+                        }
+                        if(this.user.password !=this.user.repeatPassword){
+                            $("span.errorMessage").html("重复密码不一致");
+                            $("div.registerErrorMessageDiv").css("visibility","visible");
+                            return;
+                        }
+                        axios.post(url,this.user).then(function (response) {
+                            var result=response.data;
+                            if(result.code==0){
+                                location.href="registerSuccess";
+                            }
+                            else{
+                                $("span.errorMessage").html(result.message);
+                                $("div.registerErrorMessageDiv").css("visibility","visible");
+                            }
+                        });
+                    }
+                }
+            });
+            var left = window.innerWidth/2+162;
+            $("div.loginSmallDiv").css("left",left);
+        })
+    </script>
+    <div id="loginDiv" style="position: relative">
+        <img style="height:690px;width:100%;" id="loginBackgroundImg" class="loginBackgroundImg" src="img/site/loginBackground.jpg">
+        <div id="loginSmallDiv" class="loginSmallDiv">
+            <div class="registerErrorMessageDiv">
+                <div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    <span class="errorMessage"></span>
+                </div>
+            </div>
+
+            <table class="registerTable" align="center">
+                <tr><td colspan="2" class="registerTip">设置用户名</td>
+                </tr>
+                <tr>
+                    <td class="registerTableLeftTD">登陆名</td>
+                    <td  class="registerTableRightTD"><input @keyup.enter="register" v-model="user.name" placeholder="用户名一旦设置成功，无法修改" > </td>
+                </tr>
+                <tr>
+                <td colspan="2" class="registerTip">设置登陆密码,登陆时验证，保护账号信息</td>
+                </tr>
+                <tr>
+                    <td class="registerTableLeftTD">登陆密码</td>
+                    <td class="registerTableRightTD"><input @keyup.enter="register" v-model="user.password"  type="password"  placeholder="设置你的登陆密码" > </td>
+                </tr>
+                <tr>
+                    <td class="registerTableLeftTD">密码确认</td>
+                    <td class="registerTableRightTD"><input @keyup.enter="register" v-model="user.repeatPassword"   type="password"  placeholder="请再次输入你的密码" > </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="registerButtonTD">
+                        <a @click="register"><button>提   交</button></a>
+                    </td>
+                </tr>
+            </table>
+    </div>
+</div>

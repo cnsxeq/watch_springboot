@@ -1,0 +1,31 @@
+<div  th:fragment="html">
+
+    <script>
+        $(function(){
+            var name=getUrlParms("name");
+            var data4Vue={
+                uri:'brand',
+                brand:[]
+            };
+            var vue=new Vue({
+                el:'#workingArea',
+                data:data4Vue,
+                mounted:function () {
+                  this.load();
+//                    $('#cultureTextarea').flexText();
+                },
+                methods:{
+                    load:function () {
+                        var url=this.uri+"/"+name;
+                        axios.get(url).then(function (response) {
+                            vue.brand=response.data;
+                        })
+                    },
+
+                },
+            });
+        })
+    </script>
+    <div th:replace="include/fore/brandNavigator::html"></div>
+    <div th:replace="include/fore/brand/culture::html"></div>
+</div>

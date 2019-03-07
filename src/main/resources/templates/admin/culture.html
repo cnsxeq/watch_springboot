@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/admin/adminheader::html('品牌文化')" ></head>
+<body>
+<script>
+    $(function(){
+        var id=getUrlParms("id");
+        var data4Vue ={
+            uri:'cultures',
+            listURL:'admin_brand',
+            bean:{id:0,introduction:'',story:'',characterstic:''},
+            brand:{id:0,name:''},
+        };
+        var vue = new Vue({
+            el:"#workingArea",
+            data:data4Vue,
+            mounted:function () {
+                this.get();
+                this.getBrand();
+            },
+            methods:{
+                getBrand:function () {
+                    var url="brands"+"/"+id;
+                    axios.get(url).then(function (response) {
+                        vue.brand=response.data;
+                    })
+                },
+                get:function (){
+                    var url = this.uri+"/"+id;
+                    axios.get(url).then(function(response){
+                     vue.bean=response.data;
+                    });
+                },
+                update:function () {
+                    if(!checkEmpty(this.bean.introduction,"品牌简介"))
+                        return;
+                    if(!checkEmpty(this.bean.story,"品牌故事"))
+                        return;
+                    if(!checkEmpty(this.bean.characterstic,"品牌特色"))
+                        return;
+                    var url=this.uri;
+
+                    axios.put(url,vue.bean).then(function (response) {
+                        location.href=vue.listURL;
+                    });
+                },
+            },
+        });
+    });
+</script>
+
+<div id="workingArea">
+    <div>
+        <div th:replace="include/admin/adminNavigator::html" ></div>
+        <ol class="breadcrumb" id="breadcrumb">
+            <li>后台</li>
+            <li ><a href="admin_brand">{{brand.name}}</a></li>`
+            <li class="active">品牌文化</li>
+        </ol>
+    </div>
+
+    <div class="panel panel-warning cultureDiv" >
+        <div class="panel-heading">编辑品牌文化</div>
+        <div class="panel-body">
+            <table class="editTable">
+                <tr >
+                    <td>品牌名称</td>
+                    <td><input disabled  type="text" class="form-control" :placeholder=brand.name></td>
+                </tr>
+                <tr>
+                    <td>品牌简介</td>
+                    <td><textarea type="text" v-model.trim="bean.introduction" ></textarea></td>
+                </tr>
+                <tr>
+                    <td>品牌故事</td>
+                    <td><textarea type="text" v-model.trim="bean.story"></textarea></td>
+                </tr>
+                <tr>
+                    <td>品牌特色</td>
+                    <td><textarea type="text" v-model.trim="bean.characterstic"></textarea></td>
+                </tr>
+                <tr class="submitTR">
+                    <td colspan="2" align="center">
+                        <a href="" class="btn btn-success" @click="update">提 交</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<div  th:fragment="html">
+    <script>
+        function show_carousel_left() {
+            $("a.carousel-control").show();
+        }
+        function hide_carousel_left() {
+            $("a.carousel-control").hide();
+        }
+        function carouselListeners() {
+            $("div.carousel-of-product").mouseenter(function () {
+                show_carousel_left();
+            });
+            $("div.carousel-of-product").mouseleave(function () {
+                hide_carousel_left();
+            })
+        }
+        $(function () {
+            var data4Vue ={
+                uri:'forehome',
+                arrays:[],
+                brands:[]
+            };
+            var vue=new Vue({
+                el: '#workingArea',
+                data: data4Vue,
+                mounted: function () {
+//                    linkDefaultActions();
+                    this.load();
+                    this.get();
+                },
+                methods: {
+                    load: function () {
+                        var url='brandRight';
+                        axios.get(url).then(function (response) {
+                            vue.arrays=response.data;
+                            vue.$nextTick(function () {
+                                vue.arrays=pySegSort(vue.arrays);
+                                carouselListeners();
+                            })
+                        })
+                    },
+                    get:function () {
+                        var url=this.uri;
+                        axios.get(url).then(function (response){
+                            vue.brands=response.data;
+                        })
+                    }
+
+                }} );})
+    </script>
+    <div class="homePage">
+    <div class="homeLeft">
+        <div th:replace="include/fore/carousel::html"></div>
+        <div th:replace="include/fore/home/products::html"></div>
+    </div>
+    </div>
+    <aside class="homeRight" >
+    <div th:replace="include/fore/home/search::html"></div>
+    <div th:replace="include/fore/home/brandRight::html"></div>
+</aside>
+
+</div>

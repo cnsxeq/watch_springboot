@@ -1,0 +1,49 @@
+<div  th:fragment="html">
+    <script>
+        $(function(){
+            var pid=getUrlParms("pid");
+            var data4Vue={
+                uri:'foreProduct',
+                product:'',
+                firstProductImage:null,
+                property:'',
+                showDetail:true,
+                showPlace:false,
+                store:'',
+            };
+            var vue=new Vue({
+                el:'#workingArea',
+                data:data4Vue,
+                mounted:function () {
+                    this.load();
+                },
+                methods:{
+                    load:function () {
+                        var url=this.uri+'/'+pid;
+                        axios.get(url).then(function (response) {
+                            var result=response.data;
+                            vue.product=result.data.product;
+                            vue.firstProductImage=vue.product.firstProductImage;
+                            vue.property=result.data.property;
+                            vue.stores=result.data.stores;
+                            vue.$nextTick(function () {
+                                imgAndInfoPageRegisterListeners(vue);
+                            })
+                        })
+                    },
+                    toggle2Detail:function(){
+                        this.showDetail=true;
+                        this.showPlace=false;
+                    },
+                    toggle2Place:function(){
+                        this.showDetail=false;
+                        this.showPlace=true;
+                    }
+                },
+            });
+        })
+    </script>
+    <div class="productPage">
+        <div th:replace="include/fore/product/imgAndInfo::html"></div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div th:fragment="html">
+    <script>
+        $(function () {
+            var vue=new Vue({
+                el:'#workingArea',
+                mounted:function () {
+//                    linkDefaultActions();
+                },
+                methods:{
+                    get:function () {
+                        location.href="login";
+                    }
+                    }}
+            var left = window.innerWidth/2+162;
+            $("div.loginSmallDiv").css("left",left);
+        })
+    </script>
+    <div id="loginDiv" style="position: relative">
+        <img style="height: 690px;width:100%;" id="loginBackgroundImg" class="loginBackgroundImg" src="img/site/loginBackground.jpg">
+        <div id="loginSmallDiv" class="loginSmallDiv">
+            <div class="registerSuccessDiv">
+                <img src="img/site/registerSuccess.png">
+                恭喜注册成功
+            </div>
+            <button class="sign-in-button" type="button" @click="get">
+                <span id="sign-in-loading"></span>返回登录界面
+            </button>
+        </div>
+    </div>
+</div>

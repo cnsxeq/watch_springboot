@@ -1,0 +1,131 @@
+<div  th:fragment="html">
+    <div class="productDetailDiv" v-show="showDetail" >
+        <div class="productDetailTopPart">
+            <a href="#nowhere" class="productDetailTopPartSelectedLink selected">属性详情</a>
+            <a href="#nowhere" class="productDetailTopReviewLink" @click="toggle2Place">实体店查询<span class="productDetailTopReviewLinkNumber"></span> </a>
+        </div>
+
+        <div class="productParamterPart">
+            <div class="productParamter">详细参数：</div>
+
+            <div class="property_type">基本信息</div>
+
+            <dl class="productProperty">
+                <dt class="propertySubTitle">编号</dt>
+                <dd class="propertyValue">{{property.number_}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">系列</dt>
+                <dd class="propertyValue">{{property.series}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">机芯类型</dt>
+                <dd class="propertyValue">{{property.core_model}}</dd>
+            </dl>
+
+            <div class="property_type">机芯</div>
+
+            <dl class="productProperty">
+                <dt class="propertySubTitle">机芯直径</dt>
+                <dd class="propertyValue">{{property.core_diameter}}毫米</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">机芯厚度</dt>
+                <dd class="propertyValue">{{property.core_thickness}}毫米</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">摆轮</dt>
+                <dd class="propertyValue">{{property.balance_wheel}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">振频</dt>
+                <dd class="propertyValue">{{property.vibration_frequency}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">宝石数</dt>
+                <dd class="propertyValue">{{property.gemstone}}个</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">零件数</dt>
+                <dd class="propertyValue">{{property.sqares}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">动力储备</dt>
+                <dd class="propertyValue">{{property.reserve}}</dd>
+            </dl>
+
+            <div class="property_type">外观</div>
+
+            <dl class="productProperty">
+                <dt class="propertySubTitle">表壳厚度</dt>
+                <dd class="propertyValue">{{property.shell_thickness}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">表盘颜色</dt>
+                <dd class="propertyValue">{{property.dial_color}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">表盘形状</dt>
+                <dd class="propertyValue">{{property.dial_shape}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">表带颜色</dt>
+                <dd class="propertyValue">{{property.watchband_color}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">表扣类型</dt>
+                <dd class="propertyValue">{{property.button_type}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">背透</dt>
+                <dd class="propertyValue">{{property.beitou}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">重量</dt>
+                <dd class="propertyValue">{{property.weight}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">防水深度</dt>
+                <dd class="propertyValue">{{property.waterproof_depth}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">表耳间距</dt>
+                <dd class="propertyValue">{{property.ear_spacing}}</dd>
+            </dl>
+
+            <div class="property_type">材质</div>
+
+            <dl class="productProperty">
+                <dt class="propertySubTitle">表壳材质</dt>
+                <dd class="propertyValue">{{property.material_shell}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">表盘材质</dt>
+                <dd class="propertyValue">{{property.material_case}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">表镜材质</dt>
+                <dd class="propertyValue">{{property.material_mirror}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">表冠材质</dt>
+                <dd class="propertyValue">{{property.material_crown}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">表带材质</dt>
+                <dd class="propertyValue">{{property.material_band}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">表扣材质</dt>
+                <dd class="propertyValue">{{property.material_button}}</dd>
+            </dl>
+            <dl class="productProperty">
+                <dt class="propertySubTitle">复杂功能</dt>
+                <dd class="propertyValue">{{property.function}}</dd>
+            </dl>
+
+            <div style="clear:both"></div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div th:fragment="html">
+    <div class="brand-right">
+        <div class="brand">品牌</div>
+        <ul v-for="(key,value) in arrays">
+            <li v-for="tmp in (key.data)">
+                <a :href="'brand?name='+tmp">
+                <i>{{key.letter}}</i>
+                    {{tmp}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

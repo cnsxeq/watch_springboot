@@ -1,0 +1,14 @@
+<div  th:fragment="html">
+    <script>
+
+    </script>
+    <div class="homePage">
+        <div class="homeLeft">
+            <div th:replace="include/fore/productsBySearch::html"></div>
+        </div>
+    </div>
+    <aside class="homeRight" >
+        <div th:replace="include/fore/home/search::html"></div>
+        <div th:replace="include/fore/home/brandRight::html"></div>
+    </aside>
+</div>

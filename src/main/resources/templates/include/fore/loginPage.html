@@ -1,0 +1,80 @@
+<div th:fragment="html">
+    <script>
+        $(function () {
+            var data4Vue={
+                uri:'foreLogin',
+                user:{name:'',password:""}
+            };
+            var vue=new Vue({
+                el:'#workingArea',
+                data:data4Vue,
+                mounted:function () {
+//                    linkDefaultActions();
+                },
+                methods:{
+                    login:function () {
+                        var url=this.uri;
+                        if(0==this.user.name.length){
+                            $("span.errorMessage").html("请输入用户名");
+                            $("div.loginErrorMessageDiv").css("visibility","visible");
+                            return;
+                        }
+                        if(0==this.user.password.length){
+                            $("span.errorMessage").html("请输入密码");
+                            $("div.loginErrorMessageDiv").css("visibility","visible");
+                            return;
+                        }
+
+                        axios.post(url,this.user).then(function (response) {
+                             var result=response.data;
+                            if(result.code==0){
+                                location.href="home";
+                            }
+                            else{
+                                $("span.errorMessage").html(result.message);
+                                $("div.loginErrorMessageDiv").css("visibility","visible");
+                            }
+                        });
+                    }
+                }
+            });
+            var left = window.innerWidth/2+162;
+            $("div.loginSmallDiv").css("left",left);
+        })
+    </script>
+    <div id="loginDiv" style="position: relative">
+        <img style="height: 690px;width:100%;" id="loginBackgroundImg" class="loginBackgroundImg" src="img/site/loginBackground.jpg">
+        <div id="loginSmallDiv" class="loginSmallDiv">
+            <div class="loginErrorMessageDiv">
+                <div class="alert   alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    <span class="errorMessage"></span>
+                </div>
+            </div>
+
+            <div class="login_acount_text">账号登录</div>
+            <div class="loginInput">
+                    <span class="loginInputIcon">
+                    <span class="glyphicon  glyphicon-user"></span>
+                    </span>
+                <input @keyup.enter="login" v-model="user.name" placeholder="手机/邮箱" type="text">
+            </div>
+
+            <div class="loginInput">
+                    <span class="loginInputIcon">
+                        <span class="glyphicon glyphicon-lock"></span>
+                    </span>
+                <input @keyup.enter="login" id="inputPassword" v-model="user.password" type="password" placeholder="密码">
+            </div>
+
+            <div>
+                <a class="notImplementLink" href="">忘记密码</a>
+                <a href="register" class="pull-right">免费注册</a>
+            </div>
+
+            <button class="sign-in-button" type="button" @click="login">
+                <span id="sign-in-loading"></span>登录
+            </button>
+        </div>
+    </div>
+</div>

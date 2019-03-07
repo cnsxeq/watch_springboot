@@ -1,0 +1,25 @@
+<div  th:fragment="html">
+    <div class="productDetailDiv" v-show="showPlace" >
+        <div class="productDetailTopPart">
+            <a href="#nowhere" class="productDetailTopPartSelectedLink" @click="toggle2Detail">属性详情</a>
+            <a href="#nowhere" class="productDetailTopReviewLink selected">实体店查询<span class="productDetailTopReviewLinkNumber"></span> </a>
+        </div>
+
+        <div class="productParamterPart">
+            <div class="productParamter">实体店：</div>
+                <dl class="productProperty"  v-for="s in stores">
+                    <div class="property_type">店铺：</div>
+
+                    <dt class="propertySubTitle">名称</dt>
+                    <dd class="propertyValue">{{s.place.name}}</dd>
+                    <dt class="propertySubTitle">地址</dt>
+                    <dd class="propertyValue">{{s.place.address}}</dd>
+                    <dt class="propertySubTitle">联系电话</dt>
+                    <dd class="propertyValue">{{s.place.phone}}</dd>
+                </dl>
+
+            <div style="clear:both"></div>
+        </div>
+
+    </div>
+</div>

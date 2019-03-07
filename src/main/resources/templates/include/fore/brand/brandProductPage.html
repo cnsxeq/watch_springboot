@@ -1,0 +1,48 @@
+<div  th:fragment="html">
+    <script>
+        $(function(){
+            var bid=getUrlParms("bid");
+            var data4Vue={
+                uri:'brandProduct',
+                brand:[],
+                category:{bid:0,sex:'',core:'',shell:''}
+            };
+            var vue=new Vue({
+                el:'#workingArea',
+                data:data4Vue,
+                mounted:function () {
+                    this.load();
+                },
+                methods:{
+                    load:function () {
+                        var url=this.uri+"/"+bid;
+                        axios.get(url).then(function (response) {
+                            vue.brand=response.data;
+                        })
+                    },
+                    selectBySex:function(sex){
+                        this.category.sex=sex;
+                        this.select();
+                    },
+                    selectByCore:function (core) {
+                        this.category.core=core;
+                        this.select();
+                    },
+                    selectByShell:function (shell) {
+                        this.category.shell=shell;
+                        this.select();
+                    },
+                    select:function () {
+                      this.category.bid=vue.brand.id;
+                      var url='selectedProducts';
+                      axios.post(url,this.category).then(function (response) {
+                          vue.brand=response.data;
+                      })
+                    },
+                },
+            });
+        })
+    </script>
+    <div th:replace="include/fore/brandNavigator::html"></div>
+    <div th:replace="include/fore/brand/product::html"></div>
+</div>

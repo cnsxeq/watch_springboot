@@ -1,0 +1,11 @@
+<div  th:fragment="html">
+    <div class="brandCulture">
+        <div class="cultureSubTitle">品牌简介</div>
+        <div class="cultureText">{{brand.culture.introduction}}
+        </div>
+        <div class="cultureSubTitle">品牌故事</div>
+        <div class="cultureText"><textarea  readonly="readonly" >{{brand.culture.story}}</textarea></div>
+        <div class="cultureSubTitle">品牌特色</div>
+        <div class="cultureText">{{brand.culture.characterstic}}</div>
+    </div>
+</div>

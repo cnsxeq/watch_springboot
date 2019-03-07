@@ -1,0 +1,24 @@
+<div th:fragment="html">
+    <div class="homePageProducts">
+        <div class="homePageEachBrand" v-for="b,index in brands" v-if="index<4">
+            <div class="homePageBrandName">
+            <div class="left-mark"></div>
+            <span class="brandTitle">{{b.name}}</span></div>
+            <br>
+            <div class="productItem" v-for="p,index in b.products" v-if="index<4">
+                <a :href="'product?pid='+p.id">
+                    <img  :src="'img/productSingle/'+p.firstProductImage.id+'.jpg'">
+                </a>
+                <a class="productItemDescLink" :href="'product?pid='+p.id">
+                    <span class="productItemDesc">
+                        {{p.name}}
+                    </span>
+                </a>
+                <span class="productPrice">
+                    ¥{{p.price | formatMoneyFilter}}
+                </span>
+
+            </div>
+        </div>
+    </div>
+</div>
