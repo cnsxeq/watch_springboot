@@ -874,3 +874,223 @@ button.submitOrderButton {
     color: white;
     float: right;
 }
+
+/*alipay*/
+div.aliPayPageDiv {
+    text-align: center;
+    padding-bottom: 40px;
+    max-width: 1013px;
+    margin: 10px auto;
+}
+
+span.confirmMoneyText {
+    color: #4D4D4D;
+}
+
+span.confirmMoney {
+    display: block;
+    color: #FF6600;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 10px;
+}
+img.aliPayImg {
+    /* 	width:230px; */
+    /* 	height:230px;	 */
+
+}
+button.confirmPay {
+    background-color: #00AAEE;
+    border: 1px solid #00AAEE;
+    text-align: center;
+    line-height: 31px;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    width: 107px;
+    margin-top: 20px;
+}
+
+div.payedDiv {
+    border: 1px solid #D4D4D4;
+    max-width: 1013px;
+    margin: 10px auto 20px auto;
+}
+
+div.payedTextDiv {
+    height: 61px;
+    background-color: #ECFFDC;
+    padding: 17px 0px 0px 25px;
+}
+
+div.payedTextDiv span {
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+div.payedAddressInfo {
+    padding: 26px 35px;
+}
+
+div.payedAddressInfo li {
+    background-image: url("../../img/site/li_dot.png");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-attachment: scroll;
+    background-position: 0px 13px;
+    list-style-type: none;
+    color: #333333;
+    padding-left: 15px;
+    padding-top: 5px;
+    /* 	background: rgba(0, 0, 0, 0) url("../../img/site/li_dot.png") no-repeat scroll 0 13px; */
+}
+
+span.payedInfoPrice {
+    color: #B10000;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: arial;
+}
+
+a.payedCheckLink {
+    color: #2D8CBA;
+}
+
+a.payedCheckLink:hover {
+    color: #2D8CBA;
+    text-decoration: underline;
+}
+
+div.payedCheckLinkDiv {
+    margin-left: 38px;
+}
+
+div.payedSeperateLine {
+    border-top: 1px dotted #D4D4D4;
+    margin: 0px 31px;
+}
+
+div.warningDiv {
+    margin: 23px 45px;
+}
+
+div.warningDiv {
+    color: black;
+}
+
+/*bought*/
+
+div.boughtDiv {
+    max-width: 1013px;
+    margin: 10px auto;
+}
+div.orderType div.selectedOrderType {
+    border-bottom: 2px solid #C40000;
+}
+div.orderType div {
+    border-bottom: 2px solid #E8E8E8;
+    float: left;
+}
+table.orderListTitleTable {
+    border: 1px solid #E8E8E8;
+    width: 100%;
+    margin: 20px 0px;
+    background-color: #F5F5F5;
+    text-align: center;
+}
+table.orderListTitleTable td {
+    padding: 12px 0px;
+}
+div.orderType a {
+    border-right: 1px solid #E8E8E8;
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 10px;
+    padding: 0px 20px;
+    text-decoration: none;
+}
+div.orderType div.selectedOrderType a {
+    color: #C40000;
+}
+div.orderType a:hover {
+    color: #C40000;
+    text-decoration: none;
+}
+div.orderTypeLastOne {
+    overflow: hidden;
+    float: none !important;
+    border-bottom: 2px solid #E8E8E8;
+}
+a.noRightborder {
+    border-right-width: 0px !important;
+}
+table.orderListItemTable {
+    border: 2px solid #ECECEC;
+    width: 100%;
+    margin: 20px 0px;
+}
+table.orderListItemTable:hover {
+    border: 2px solid #aaa !important;
+}
+tr.orderListItemFirstTR {
+    background-color: #F1F1F1;
+    font-size:12px;
+}
+table.orderListItemTable td {
+    padding: 8px 10px;
+}
+span.orderListItemDelete {
+    display: inline-block;
+    margin: 0px 10px;
+    color: #999999;
+    font-size: 16px;
+}
+div.orderListItemProductLinkOutDiv {
+    font-size:18px;
+}
+div.orderListItemProductLinkOutDiv a{
+    color: black;
+    text-decoration: none;
+}
+div.orderListItemProductLinkOutDiv a:hover{
+    color: #C40000;
+    text-decoration: none;
+}
+div.orderListItemProductPrice {
+    color: #3C3C3C;
+    font-size: 14px;
+}
+td.orderListItemProductRealPriceTD {
+    text-align: center;
+}
+button.orderListItemConfirm {
+    background-color: #66B6FF;
+    border-radius: 2px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-width: 0px;
+    padding: 6px 12px;
+}
+button.orderListItemConfirm:hover {
+    background-color: #118ADB;
+}
+td.orderItemDeleteTD {
+    text-align: right;
+}
+td.orderListItemButtonTD {
+    text-align: center;
+}
+td.orderListItemNumberTD {
+    text-align: center;
+}
+td.orderItemOrderInfoPartTD {
+    border: solid 1px #ECECEC;
+    padding-top:35px !important;
+}
+tr.orderItemProductInfoPartTR{
+    background-color: #fff;
+}

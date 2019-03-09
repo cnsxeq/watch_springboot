@@ -1,11 +1,13 @@
 package com.watch.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.watch.service.OrderService;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
 
 @Entity
 @Table(name = "order_")
@@ -46,34 +48,26 @@ public class Order {
         this.statusDesc = statusDesc;
     }
 
-//    public String getStatusDesc() {
-//        if(null!=statusDesc)
-//            return statusDesc;
-//        String desc =  "未知";
-//        switch(status){
-//            case OrderService.waitPay:
-//                desc="待付款";
-//                break;
-//            case OrderService.waitDelivery:
-//                desc="待发货";
-//                break;
-//            case OrderService.waitConfirm:
-//                desc="待收货";
-//                break;
-//            case OrderService.waitReview:
-//                desc="待评价";
-//                break;
-//            case OrderService.finish:
-//                desc="已完成";
-//                break;
-//            case OrderService.delete:
-//                desc="刪除";
-//                break;
-//            default:
-//                desc="未知";
-//        }
-//        statusDesc = desc;
-//        return statusDesc;
-//    }
+    public String getStatusDesc() {
+        if(null!=statusDesc)
+            return statusDesc;
+        String desc =  "未知";
+        switch(status){
+            case OrderService.waitPay:
+                desc="待付款";
+                break;
+            case OrderService.bought:
+                desc="已付款";
+                break;
+            case OrderService.delete:
+                desc="刪除";
+                break;
+            default:
+                desc="未知";
+        }
+        statusDesc = desc;
+        return statusDesc;
+    }
+
 
 }

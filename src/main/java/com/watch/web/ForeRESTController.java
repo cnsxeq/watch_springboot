@@ -7,6 +7,7 @@ import com.watch.util.Category;
 import com.watch.util.ImageUtil;
 import com.watch.util.Page4Navigator;
 import com.watch.util.Result;
+import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,10 +19,8 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 public class ForeRESTController {
@@ -34,6 +33,7 @@ public class ForeRESTController {
     @Autowired StoreService storeService;
     @Autowired PlaceService placeService;
     @Autowired OrderItemService orderItemService;
+    @Autowired OrderService orderService;
 
     @GetMapping("/forehome")
     public Object forehome(){
@@ -208,6 +208,57 @@ public class ForeRESTController {
         map.put("total",total);
         return Result.success(map);
     }
+    @PostMapping("foreCreateOrder")
+    public Object createOrder(@RequestBody Order order,HttpSession session){
+        User user = (User)session.getAttribute("user");
+        if (null==user)
+            return Result.fail("未登录");
+        String orderCode = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date())+ RandomUtils.nextInt(10000);
+        order.setOrderCode(orderCode);
+        order.setCreateDate(new Date());
+        order.setUser(user);
+        order.setStatus(OrderService.waitPay);
+        List<OrderItem> ois = (List<OrderItem>)session.getAttribute("ois");
 
+        float total = orderService.add(order,ois);
 
+        Map<String,Object> map = new HashMap<>();
+        map.put("oid",order.getId());
+        map.put("total",total);
+        return Result.success(map);
+    }
+
+    @GetMapping("forePayed")
+    public Object payed(int oid){
+        Order order = orderService.get(oid);
+        order.setStatus(OrderService.waitDelivery);
+        order.setPayDate(new Date());
+        orderService.update(order);
+        return order;
+    }
+    @GetMapping("foreDeleteOrderItem")
+    public Object deleteOrderItem(HttpSession session,int oiid){
+        User user = (User)session.getAttribute("user");
+        if(null==user)
+            return Result.fail("未登录");
+
+        orderItemService.delete(oiid);
+        return Result.success();
+    }
+@PutMapping("foreDeleteOrder")
+public Object deleteOrder(int oid){
+    Order o = orderService.get(oid);
+    o.setStatus(OrderService.delete);
+    orderService.update(o);
+    return Result.success();
+}
+    @GetMapping("foreBought")
+    public Object bought(HttpSession session){
+        User user = (User)session.getAttribute("user");
+        if (null==user)
+            return Result.fail("未登录");
+        List<Order> os = orderService.listByUserWithoutDelete(user);
+        orderService.removeOrderFromOrderItem(os);
+        return os;
+    }
 }

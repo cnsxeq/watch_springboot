@@ -24,45 +24,44 @@ public class OrderItemService {
     public OrderItem get(int id){
         return orderItemDAO.getOne(id);
     }
-//    public void fill(List<Order> orders){
-//        for(Order order:orders){
-//            fill(order);
-//        }
-//    }
-//
-//    public void fill(Order order){
-//        List<OrderItem> orderItems = listByOrder(order);
-//        float total = 0;
-//        int totalNubmer = 0;
-//        for(OrderItem orderItem:orderItems){
-//            total+=orderItem.getNumber()*orderItem.getProduct().getPromotePrice();
-//            totalNubmer+=orderItem.getNumber();
-//            productImageService.setFirstProductImage(orderItem.getProduct());
-//        }
-//        order.setTotal(total);
-//        order.setTotalNumber(totalNubmer);
-//        order.setOrderItems(orderItems);
-//
-//    }
-//
-//    public List<OrderItem> listByOrder(Order order){
-//        return orderItemDAO.findByOrderOrderByIdDesc(order);
-//    }
-//    public List<OrderItem> listByProduct(Product product){
-//        return orderItemDAO.findByProduct(product);
-//    }
+    public void fill(List<Order> orders){
+        for(Order order:orders){
+            fill(order);
+        }
+    }
 
+    public void fill(Order order){
+        List<OrderItem> orderItems = listByOrder(order);
+        float total = 0;
+        int totalNubmer = 0;
+        for(OrderItem orderItem:orderItems){
+            total+=orderItem.getProduct().getPrice();
+            totalNubmer+=orderItem.getNumber();
+            productImageService.setFirstProductImage(orderItem.getProduct());
+        }
+        order.setTotal(total);
+        order.setTotalNumber(totalNubmer);
+        order.setOrderItems(orderItems);
+    }
 //
-//    public void add(OrderItem orderItem){
-//        orderItemDAO.save(orderItem);
-//    }
-//    public void delete(int id){
-//        orderItemDAO.deleteById(id);
-//    }
+    public List<OrderItem> listByOrder(Order order){
+        return orderItemDAO.findByOrderOrderByIdDesc(order);
+    }
+    public List<OrderItem> listByProduct(Product product){
+        return orderItemDAO.findByProduct(product);
+    }
 
-//    public void update(OrderItem orderItem){
-//        orderItemDAO.save(orderItem);
-//    }
+
+    public void add(OrderItem orderItem){
+        orderItemDAO.save(orderItem);
+    }
+    public void delete(int id){
+        orderItemDAO.deleteById(id);
+    }
+
+    public void update(OrderItem orderItem){
+        orderItemDAO.save(orderItem);
+    }
 //
 //
 //
