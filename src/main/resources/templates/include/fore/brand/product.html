@@ -1,8 +1,5 @@
 <div  th:fragment="html">
-    <div class="brandProducts">
-        <div th:replace="include/fore/brand/categoryBar::html"></div>
-
-        <div class="productItem" v-for="p,index in brand.products" :price="p.price">
+        <div class="productItem" v-for="p,index in products" :price="p.price">
         <a :href="'product?pid='+p.id">
             <img  :src="'img/productSingle/'+p.firstProductImage.id+'.jpg'">
         </a>
@@ -14,6 +11,5 @@
         <span class="productPrice">
                     ¥{{p.price | formatMoneyFilter}}
                 </span>
-    </div>
     </div>
 </div>

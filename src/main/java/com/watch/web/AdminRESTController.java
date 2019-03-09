@@ -27,20 +27,6 @@ public class AdminRESTController {
     @Autowired ProductService productService;
     @Autowired ProductImageService productImageService;
     @Autowired PropertyService propertyService;
-    @PostMapping("/admin_login")
-    public Object login(@RequestBody User userParam, HttpSession session) {
-        String name = userParam.getName();
-        name = HtmlUtils.htmlEscape(name);
-
-        User user = userService.get(name, userParam.getPassword());
-        if (null == user) {
-            String message = "账号或密码错误";
-            return Result.fail(message);
-        } else {
-            session.setAttribute("user", user);
-            return Result.success();
-        }
-    }
 
     @GetMapping("/brands")
     public Page4Navigator<Brand> list(@RequestParam(value="start",defaultValue = "0")int start,

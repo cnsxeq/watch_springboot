@@ -15,4 +15,7 @@ public interface ProductDAO extends JpaRepository<Product,Integer> {
 
     @Query(value = "select * from product where if(?1 !='',bid=?1,1=1) and if(?2 !='',sex=?2,1=1) and if(?3 !='',core=?3,1=1) and if(?4 !='',shell like ?4,1=1)",nativeQuery = true)
     List<Product> find(Brand brand,String sex,String core,String shell);
+
+    List<Product> findByNameLike(String keyword,Pageable pageable);
+
 }

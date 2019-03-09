@@ -49,4 +49,14 @@ public class ForePageController {
     public String search(){
         return "fore/search";
     }
+
+    @GetMapping(value="/cart")
+    public String cart(){
+        return "fore/cart";
+    }
+
+    @GetMapping(value="/buy")
+    public String buy(){
+        return "fore/buy";
+    }
 }

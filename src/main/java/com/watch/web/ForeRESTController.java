@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class ForeRESTController {
     @Autowired PropertyService propertyService;
     @Autowired StoreService storeService;
     @Autowired PlaceService placeService;
+    @Autowired OrderItemService orderItemService;
 
     @GetMapping("/forehome")
     public Object forehome(){
@@ -137,7 +139,16 @@ public class ForeRESTController {
             return Result.success();
         return Result.fail("未登录");
     }
+    @GetMapping("foreCart")
+    public Object cart(HttpSession session){
+        User user = (User)session.getAttribute("user");
+        System.out.println(user.getId());
+        List<OrderItem> ois = orderItemService.listByUser(user);
+        System.out.println(ois.toString());
+        productImageService.setFirstProductImagesOnOrderItems(ois);
 
+        return ois;
+    }
 //    @GetMapping("foreAddCart")
 //    public Object addCart(int pid,HttpSession session){
 //        int num=1;
@@ -170,5 +181,33 @@ public class ForeRESTController {
 //        }
 //        return oiid;
 //    }
+
+    @PostMapping("foreSearch")
+    public List<Product> search(String keyword)throws Exception{
+        if(null==keyword)
+            keyword="";
+        List<Product> ps = productService.search(keyword,0,20);
+        productImageService.setFirstProductImages(ps);
+        return ps;
+    }
+
+    @GetMapping("foreBuy")
+    public Object buy(String[] oiid,HttpSession session) {
+        List<OrderItem> orderItems = new ArrayList<>();
+        float total = 0;
+        for (String strid : oiid) {
+            int id = Integer.parseInt(strid);
+            OrderItem oi = orderItemService.get(id);
+            total += oi.getProduct().getPrice();
+            orderItems.add(oi);
+        }
+        productImageService.setFirstProductImagesOnOrderItems(orderItems);
+        session.setAttribute("ois",orderItems);
+        Map<String,Object> map = new HashMap<>();
+        map.put("orderItems",orderItems);
+        map.put("total",total);
+        return Result.success(map);
+    }
+
 
 }

@@ -1,10 +1,43 @@
 <div  th:fragment="html">
     <script>
-
+        $(function(){
+            var keyword = getUrlParms("keyword");
+            var data4Vue = {
+                uri:'foreSearch',
+                products:'',
+                arrays:[],
+            };
+            var vue = new Vue({
+                el: '#workingArea',
+                data: data4Vue,
+                mounted: function () { //mounted　表示这个 Vue 对象加载成功了
+                    this.load();
+                    this.get();
+                },
+                methods: {
+                    get:function(){
+                        var url =  this.uri+"?keyword="+keyword;
+                        axios.post(url).then(function(response) {
+                            vue.products = response.data;
+                        });
+                    },
+                    load: function () {
+                        var url='brandRight';
+                        axios.get(url).then(function (response) {
+                            vue.arrays=response.data;
+                            vue.$nextTick(function () {
+                                vue.arrays=pySegSort(vue.arrays);
+                                carouselListeners();
+                            })
+                        })
+                    },
+                }
+            });
+            })
     </script>
     <div class="homePage">
         <div class="homeLeft">
-            <div th:replace="include/fore/productsBySearch::html"></div>
+            <div th:replace="include/fore/brand/product::html"></div>
         </div>
     </div>
     <aside class="homeRight" >

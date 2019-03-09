@@ -5,7 +5,8 @@
             var data4Vue={
                 uri:'brandProduct',
                 brand:[],
-                category:{bid:0,sex:'',core:'',shell:''}
+                category:{bid:0,sex:'',core:'',shell:''},
+                products:'',
             };
             var vue=new Vue({
                 el:'#workingArea',
@@ -18,6 +19,7 @@
                         var url=this.uri+"/"+bid;
                         axios.get(url).then(function (response) {
                             vue.brand=response.data;
+                            vue.products=vue.brand.products;
                         })
                     },
                     selectBySex:function(sex){
@@ -37,12 +39,16 @@
                       var url='selectedProducts';
                       axios.post(url,this.category).then(function (response) {
                           vue.brand=response.data;
+                          vue.products=vue.brand.products;
                       })
                     },
                 },
             });
         })
     </script>
-    <div th:replace="include/fore/brandNavigator::html"></div>
-    <div th:replace="include/fore/brand/product::html"></div>
+    <div th:replace="include/fore/brand/brandNavigator::html"></div>
+    <div class="brandProducts">
+        <div th:replace="include/fore/brand/categoryBar::html"></div>
+        <div th:replace="include/fore/brand/product::html"></div>
+    </div>
 </div>

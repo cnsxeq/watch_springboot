@@ -21,7 +21,7 @@ public class Product {
     private Brand brand;
 
     private String name;
-    private String price;
+    private Float price;
     private String sex;
     private String core;
     private String shell;

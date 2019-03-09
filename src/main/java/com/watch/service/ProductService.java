@@ -58,4 +58,18 @@ public class ProductService {
         List<Product> products=productDAO.find(brand,sex,core,shell);
         return products;
     }
+
+    public List<Product> search(String keyword,int start,int size){
+        Sort sort = new Sort(Sort.Direction.DESC,"id");
+        Pageable pageable = new PageRequest(start,size,sort);
+        List<Product> products = productDAO.findByNameLike("%"+keyword+"%",pageable);
+        return products;
+    }
+//    public Page4Navigator<Product> search(String keyword, int start, int size, int navigatePages){
+//        Sort sort = new Sort(Sort.Direction.DESC,"id");
+//        Pageable pageable = new PageRequest(start,size,sort);
+//        Page<Product> pageFromJPA = productDAO.findByNameLike("%"+keyword+"%",pageable);
+//        return new Page4Navigator<>(pageFromJPA,navigatePages);
+//    }
+
 }

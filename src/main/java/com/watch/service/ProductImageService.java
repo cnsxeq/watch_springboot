@@ -1,6 +1,7 @@
 package com.watch.service;
 
 import com.watch.dao.ProductImageDAO;
+import com.watch.pojo.OrderItem;
 import com.watch.pojo.Product;
 import com.watch.pojo.ProductImage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class ProductImageService {
     }
     public List<ProductImage> listPluralProductImages(Product product){
         return productImageDAO.findByProductAndTypeOrderByIdDesc(product,type_plural);
+    }
+    public void setFirstProductImagesOnOrderItems(List<OrderItem> ois){
+        for (OrderItem oi:ois){
+            setFirstProductImage(oi.getProduct());
+        }
     }
 }

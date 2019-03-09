@@ -1,0 +1,166 @@
+<div  th:fragment="html">
+    <script>
+        $(function(){
+            var data4Vue={
+                uri:'foreCart',
+                orderItems:[]
+            };
+            var vue=new Vue({
+                el:'#workingArea',
+                data:data4Vue,
+                mounted:function () {
+                    this.load();
+                },
+                methods:{
+                    load:function () {
+                        var url=this.uri;
+                        axios.get(url).then(function(response){
+                            vue.orderItems=response.data;
+                            vue.$nextTick(function () {
+                                cartPageRegisterListeners();
+                            })
+                        });
+                    }
+                },
+            })
+            var deleteOrderItem = false;
+            var deleteOrderItemid = 0;
+
+            function cartPageRegisterListeners() {
+                $("a.deleteOrderItem").click(function(){
+                    deleteOrderItem = false;
+                    var oiid = $(this).attr("oiid")
+                    deleteOrderItemid = oiid;
+                    $("#deleteConfirmModal").modal('show');
+                });
+                $("button.deleteConfirmButton").click(function(){
+                    deleteOrderItem = true;
+                    $("#deleteConfirmModal").modal('hide');
+                });
+
+                $('#deleteConfirmModal').on('hidden.bs.modal', function (e) {
+                    if(deleteOrderItem){
+                        var url = "foredeleteOrderItem?oiid="+deleteOrderItemid;
+                        axios.get(url).then(function(response){
+                            if(0==response.data.code){
+                                $("tr.cartProductItemTR[oiid="+deleteOrderItemid+"]").hide();
+                            }
+                            else{
+                                location.href="login";
+                            }
+                        });
+                    }
+                })
+
+                $("img.cartProductItemIfSelected").click(function(){
+                    var selectit = $(this).attr("selectit")
+                    if("selectit"==selectit){
+                        $(this).attr("src","img/site/cartNotSelected.png");
+                        $(this).attr("selectit","false")
+                        $(this).parents("tr.cartProductItemTR").css("background-color","#eee");
+                    }
+                    else{
+                        $(this).attr("src","img/site/cartSelected.png");
+                        $(this).attr("selectit","selectit")
+                        $(this).parents("tr.cartProductItemTR").css("background-color","#FFF8E1");
+                    }
+                    syncSelect();
+                    syncCreateOrderButton();
+                    calcCartSumPriceAndNumber();
+                });
+
+                $("img.selectAllItem").click(function(){
+                    var selectit = $(this).attr("selectit")
+                    if("selectit"==selectit){
+                        $("img.selectAllItem").attr("src","img/site/cartNotSelected.png");
+                        $("img.selectAllItem").attr("selectit","false")
+                        $(".cartProductItemIfSelected").each(function(){
+                            $(this).attr("src","img/site/cartNotSelected.png");
+                            $(this).attr("selectit","false");
+                            $(this).parents("tr.cartProductItemTR").css("background-color","#eee");
+                        });
+                    }
+                    else{
+                        $("img.selectAllItem").attr("src","img/site/cartSelected.png");
+                        $("img.selectAllItem").attr("selectit","selectit")
+                        $(".cartProductItemIfSelected").each(function(){
+                            $(this).attr("src","img/site/cartSelected.png");
+                            $(this).attr("selectit","selectit");
+                            $(this).parents("tr.cartProductItemTR").css("background-color","#FFF8E1");
+                        });
+                    }
+                    syncCreateOrderButton();
+                    calcCartSumPriceAndNumber();
+                    });
+                $("button.createOrderButton").click(function(){
+                    var params = "";
+                    $(".cartProductItemIfSelected").each(function(){
+                        if("selectit"==$(this).attr("selectit")){
+                            var oiid = $(this).attr("oiid");
+                            params += "&oiid="+oiid;
+                        }
+                    });
+                    params = params.substring(1);
+                    location.href="buy?"+params;
+                });
+            }
+//            全选保护
+            function syncSelect(){
+                var selectAll = true;
+                $(".cartProductItemIfSelected").each(function(){
+                    if("false"==$(this).attr("selectit")){
+                        selectAll = false;
+                    }
+                });
+
+                if(selectAll)
+                    $("img.selectAllItem").attr("src","img/site/cartSelected.png");
+                else
+                    $("img.selectAllItem").attr("src","img/site/cartNotSelected.png");
+            }
+//添加订单
+            function syncCreateOrderButton(){
+                var selectAny = false;
+                $(".cartProductItemIfSelected").each(function(){
+                    if("selectit"==$(this).attr("selectit")){
+                        selectAny = true;
+                    }
+                });
+                if(selectAny){
+                    $("button.createOrderButton").css("background-color","#C40000");
+                    $("button.createOrderButton").removeAttr("disabled");
+                }
+                else{
+                    $("button.createOrderButton").css("background-color","#AAAAAA");
+                    $("button.createOrderButton").attr("disabled","disabled");
+                }
+
+            }
+//            总价
+            function calcCartSumPriceAndNumber(){
+                var sum = 0;
+                var totalNumber = 0;
+                $("img.cartProductItemIfSelected[selectit='selectit']").each(function(){
+                    var oiid = $(this).attr("oiid");
+                    var price =$(".cartProductItemOringalPrice[oiid="+oiid+"]").text();
+                    price = price.replace(/,/g, "");
+                    price = price.replace(/￥/g, "");
+                    sum += new Number(price);
+
+                    var num =1;
+                    totalNumber += new Number(num);
+
+                });
+
+                $("span.cartSumPrice").html("￥"+formatMoney(sum));
+                $("span.cartSumNumber").html(totalNumber);
+            }
+
+
+        })
+    </script>
+
+    <div class="cartDiv">
+        <div th:replace="include/fore/cart/cartProductList::html"></div>
+    </div>
+</div>

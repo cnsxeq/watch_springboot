@@ -668,3 +668,209 @@ dl.productProperty dd{
     zoom: 1;
 }
 
+/*forecart*/
+div.cartProductList{
+    display:block;
+    margin:5px 20px 5px 20px;
+}
+table.cartProductTable{
+    width: 100%;
+    font-size:12px;
+}
+table.cartProductTable th{
+    font-weight: normal;
+    color: #3C3C3C;
+    padding: 20px 20px;
+}
+img.cartProductImg {
+    padding: 1px;
+    border: 1px solid #EEEEEE;
+    width: 80px;
+    height: 80px;
+}
+
+table.cartProductTable th.selectAndImage{
+    width:150px;
+}
+img.cartProductItemIfSelected, img.selectAllItem {
+    cursor: pointer;
+}
+table.cartProductTable th.operation{
+     width:80px;
+ }
+tr.cartProductItemTR td {
+    padding: 20px 20px;
+}
+
+tr.cartProductItemTR {
+    border: 1px solid #CCCCCC;
+}
+a.cartProductLink {
+    color: #3C3C3C;
+}
+span.cartProductItemOringalPrice {
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: bold;
+    color: #C40000;
+}
+div.cartFoot {
+    background-color: #E5E5E5;
+    line-height: 50px;
+    margin: 20px 0px;
+    color: black;
+    padding-left: 20px;
+}
+span.cartSumNumber {
+    color: #C40000;
+    font-weight: bold;
+    font-size: 16px;
+}
+span.cartSumPrice {
+    color: #C40000;
+    font-weight: bold;
+    font-size: 20px;
+}
+div.cartFoot button {
+    background-color: #AAAAAA;
+    border: 0px solid #AAAAAA;
+    color: white;
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    /* 	border-radius: 2px; */
+}
+
+/*deleteConfirm*/
+
+div.deleteConfirmModalDiv {
+    width: 350px;
+}
+div.modal-footer{
+    height: 40px;
+}
+button.btnClose{
+    margin-right:80px;
+}
+
+/*buyList*/
+div.buyPageDiv {
+    margin: 20px auto;
+    max-width: 1013px;
+}
+div.address {
+    margin: 20px 5px;
+    text-align: left;
+}
+div.addressTip, div.productListTip {
+    color: #333333;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 30px;
+}
+table.addressTable {
+    margin: 20px 20px;
+    width: 600px;
+}
+table.addressTable td.firstColumn {
+    width: 100px;
+}
+table.addressTable td {
+    color: #333333;
+    text-align: right;
+    vertical-align: top;
+    padding-right: 5px;
+    text-align: left;
+    height: 30px;
+    font-size:12px;
+}
+span.redStar {
+    color: red;
+    font-size: 8px;
+}
+table.addressTable td input {
+    border: 1px solid #AFAFAF;
+    width: 300px;
+}
+table.addressTable td textarea {
+    border: 1px solid #AFAFAF;
+    margin-bottom: 10px;
+    width: 400px;
+}
+table.productListTable {
+    width: 100%;
+    border-collapse: separate;
+}
+table.productListTable th {
+     font-family: ����;
+     font-weight: normal;
+     font-size: 12px;
+     text-align: center;
+     padding-bottom: 5px;
+ }
+table.productListTable tr.rowborder td {
+    background-color: #b2d1ff;
+    border-right: 2px solid #fff;
+    height: 3px;
+}
+img.orderItemImg {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #E9E9E9;
+}
+tr.orderItemTR td {
+    padding: 10px 0px;
+}
+a.orderItemProductLink {
+    color: #666666;
+    display: block;
+}
+a.orderItemProductLink:hover {
+    color: #666666;
+    text-decoration: underline;
+}
+td.orderItemProductInfo {
+    text-align: center;
+}
+span.orderItemProductPrice, span.orderItemProductNumber {
+    color: #000000;
+}
+span.orderItemUnitSum {
+    color: #CC0000;
+    font-weight: bold;
+}
+tr.orderItemTR td {
+    border-bottom: 1px solid #E5E5E5;
+}
+tbody.productListTableTbody td {
+    text-align: center;
+    font-size:15px;
+}
+div.orderItemTotalSumDiv {
+    margin: 40px;
+    height: 40px;
+}
+div.orderItemTotalSumDiv div{
+    position: absolute;
+   right:300px;
+    padding-top:20px;
+}
+span.orderItemTotalSumSpan {
+    color: #C40000 !important;
+    font-size: 22px;
+    font-weight: bold;
+    border-bottom: 1px dotted #F2F6FF;
+    margin:18px 5px 0px 0px;
+}
+button.submitOrderButton {
+    border: 1px solid #C40000;
+    background-color: #C40000;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    float: right;
+}
