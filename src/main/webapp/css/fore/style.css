@@ -211,13 +211,13 @@ div.productItem span.productPrice {
 }
 /*brand*/
 .brandBody{
-    background-color: rgb(36, 41, 46);
+    background-color: #eee;
 }
 
 
 /*cultureNavigator*/
 div.brandNavigator{
-    margin-top:-1px;
+    margin-top:0px;
     padding-left:50px;
 }
 a.brandImgAndName{
@@ -229,7 +229,7 @@ a.brandImgAndName{
 }
 a.brandImgAndName span{
     font-size: 15px;
-    color: 	#DCDCDC;
+    color: 	#646464;
     margin-right: 200px;
 }
 span.navigatorText{
@@ -238,7 +238,7 @@ span.navigatorText{
     padding-right: 30px;
 }
 span.navigatorText a{
-    color: rgb(255, 255, 255);
+    color: #708090;
     cursor: pointer;
     text-decoration: none;
 }
@@ -263,7 +263,7 @@ div.cultureText{
     font-size: 14px;
     margin-bottom: 28px;
     text-align: justify;
-    color: #708090;
+    color:black;
     padding-left:50px;
     padding-right:50px;
 }
@@ -273,7 +273,7 @@ div.cultureText textarea{
     width: 100%;
     min-height: 300px;
     border:none;
-    background-color: rgb(36, 41, 46);
+    background-color:#eee;
 }
 /*brandProduct*/
 
