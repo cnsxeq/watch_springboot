@@ -20,6 +20,9 @@ public class Result {
     public static Result success(Object data) {
         return new Result(SUCCESS_CODE,"",data);
     }
+    public static Result success(String message,Object data){
+        return new Result(SUCCESS_CODE,message,data);
+    }
     public static Result fail(String message) {
         return new Result(FAIL_CODE,message,null);
     }
@@ -48,4 +51,12 @@ public class Result {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "\"code\":" + code +
+                ", \"message\":\"" + message + '\"' +
+                ", \"data\":\"" + data + '\"'+
+                '}';
+    }
 }

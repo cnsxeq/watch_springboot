@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+
 public class AdminRESTController {
     @Autowired UserService userService;
     @Autowired BrandService brandService;
@@ -71,6 +72,8 @@ public class AdminRESTController {
     public Object update(Brand bean,MultipartFile image,HttpServletRequest request)throws Exception{
         String name=request.getParameter("name");
         bean.setName(name);
+        String ename=request.getParameter("ename");
+        bean.setEname(ename);
         brandService.update(bean);
         if(null!=image){
             saveOrUpdateImageFile(bean,image,request);
@@ -127,7 +130,6 @@ public class AdminRESTController {
     @GetMapping("/properties/{id}")
     public Property getProperty(@PathVariable("id") int id)throws Exception{
         Property bean=propertyService.get(id);
-        System.out.print(bean.toString());
         return bean;
     }
 
@@ -136,4 +138,12 @@ public class AdminRESTController {
         propertyService.update(bean);
         return bean;
     }
+    @GetMapping("/listUsers")
+    public Page4Navigator<User> userlist(@RequestParam(value = "start",defaultValue = "0") int start,
+                                     @RequestParam(value = "size",defaultValue = "5") int size)throws Exception{
+        start=start<0?0:start;
+        Page4Navigator<User> page = userService.list(start,size,5);
+        return page;
+    }
+
 }

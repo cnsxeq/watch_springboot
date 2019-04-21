@@ -32,6 +32,7 @@
                     var formData = new FormData();
                     formData.append("image", this.file);
                     formData.append("name", this.bean.name);
+                    formData.append("ename",this.bean.ename);
                     axios.put(url,formData).then(function(response){
                         alert("更新成功");
                         location.href=vue.listURL;
@@ -64,7 +65,12 @@
             <tr>
                 <td>品牌名称</td>
                 <!--绑定属性去掉前后空白-->
-               <td><input  @keyup-enter="update" v-model.trim="bean.name"  type="text" class="form-control" placeholder=bean.name></td>
+               <td><input  @keyup-enter="update" v-model.trim="bean.name"  type="text" class="form-control" ></td>
+            </tr>
+            <tr>
+                <td>英文名称</td>
+                <!--绑定属性去掉前后空白-->
+                <td><input  @keyup-enter="update" v-model.trim="bean.ename"  type="text" class="form-control"></td>
             </tr>
             <tr>
                 <td>品牌图片</td>

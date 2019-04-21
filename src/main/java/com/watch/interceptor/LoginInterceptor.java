@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LoginInterceptor implements HandlerInterceptor{
-
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest,
                              HttpServletResponse httpServletResponse,
@@ -17,14 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor{
         HttpSession session = httpServletRequest.getSession();
         String contextPath = session.getServletContext().getContextPath();
         String[] requireAuthPages = new String[]{
-                "buy",
-                "alipay",
-                "payed",
-                "cart",
-                "bought",
-                "confirmPay",
-                "orderConfirmed",
-                "forebuyone",
+                "buy", "alipay", "payed", "cart", "bought", "confirmPay", "orderConfirmed", "forebuyone",
                 "forebuy",
                 "foreaddCart",
                 "forecart",
@@ -37,7 +29,13 @@ public class LoginInterceptor implements HandlerInterceptor{
                 "foreorderConfirmed",
                 "foredeleteOrder",
                 "forereview",
-                "foredoreview"
+                "foredoreview","admin_brand",
+                "admin_brand_edit",
+                "admin_culture",
+                "admin_product_list",
+                "admin_product_edit",
+                "admin_property_edit",
+                "admin_users","admin_order","userCenter"
         };
         String uri = httpServletRequest.getRequestURI();
         uri = StringUtils.remove(uri,contextPath+"/");

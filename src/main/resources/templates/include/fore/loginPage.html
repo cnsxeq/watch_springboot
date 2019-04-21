@@ -3,7 +3,7 @@
         $(function () {
             var data4Vue={
                 uri:'foreLogin',
-                user:{name:'',password:""}
+                user:{email:'',password:""}
             };
             var vue=new Vue({
                 el:'#workingArea',
@@ -14,8 +14,8 @@
                 methods:{
                     login:function () {
                         var url=this.uri;
-                        if(0==this.user.name.length){
-                            $("span.errorMessage").html("请输入用户名");
+                        if(0==this.user.email.length){
+                            $("span.errorMessage").html("请输入邮箱");
                             $("div.loginErrorMessageDiv").css("visibility","visible");
                             return;
                         }
@@ -57,7 +57,7 @@
                     <span class="loginInputIcon">
                     <span class="glyphicon  glyphicon-user"></span>
                     </span>
-                <input @keyup.enter="login" v-model="user.name" placeholder="手机/邮箱" type="text">
+                <input @keyup.enter="login" v-model="user.email" placeholder="邮箱" type="text">
             </div>
 
             <div class="loginInput">

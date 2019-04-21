@@ -3,6 +3,7 @@ package com.watch.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.xml.soap.SAAJResult;
 
 @Controller
@@ -72,5 +73,25 @@ public class ForePageController {
     @GetMapping(value="/bought")
     public String bought(){
         return "fore/bought";
+    }
+    @GetMapping(value="forgetPassword")
+    public String forgetPassword(){
+        return "fore/forgetPassword";
+    }
+
+    @GetMapping(value="passwordSuccess")
+    public String passwordSuccess(){
+        return "fore/passwordSuccess";
+    }
+
+    @GetMapping(value="/userCenter")
+    public String userCenter(){
+        return "fore/userCenter";
+    }
+
+    @GetMapping(value="/forelogout")
+    public String logout(HttpSession session ) {
+        session.removeAttribute("user");
+        return "redirect:home";
     }
 }
